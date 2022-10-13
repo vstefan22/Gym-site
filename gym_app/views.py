@@ -34,7 +34,7 @@ class Checkout(View):
             ],
             mode = 'payment',
             success_url = DOMAIN + '/success/',
-            cancel_url = DOMAIN + '/cancel/',
+            cancel_url = DOMAIN,
         )
         
         return redirect(checkout_session.url)

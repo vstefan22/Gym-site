@@ -11,13 +11,20 @@
 
 <body>
     {%block content%}
-    {{plan.name}}
-    {%for price in price_fields%}
-    <form action="{% url 'gym:checkout' price.id %}" method="post">
-        {%csrf_token%}
-        <button type="submit">Checkout</button>
-    </form>
-    {%endfor%}
+
+
+    <!--Monthly plans-->
+    <section>
+        {{plan.name}}
+        {%for price in price_fields%}
+        <form action="{% url 'gym:checkout' price.id %}" method="post">
+            {%csrf_token%}
+            <button type="submit">Checkout</button>
+        </form>
+        {%endfor%}
+    </section>
+
+
     {%endblock%}
 </body>
 
