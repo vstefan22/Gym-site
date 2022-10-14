@@ -7,12 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 </head>
 
 <body>
     {%block content%}
 
-
+    <style>
+        #map {
+            height: 400px;
+            /* The height is 400 pixels */
+            width: 100%;
+            /* The width is the width of the web page */
+        }
+    </style>
     <!--Monthly plans-->
     <section>
         {{plan.name}}
@@ -24,7 +32,57 @@
         {%endfor%}
     </section>
 
+    <!--Google maps-->
+    <section>
+        <!--The div element for the map -->
+        <div id="map"></div>
 
+        <script src="https://maps.googleapis.com/maps/api/js?key=#&callback=initMap&v=weekly" defer></script>
+
+
+        <script>
+            function initMap() {
+                // The location of Uluru
+                const uluru = { lat: 44.765847893455806, lng: 17.207241303074138 };
+                // The map, centered at Uluru
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 10,
+                    center: uluru,
+                });
+                // The marker, positioned at Uluru
+                const marker = new google.maps.Marker({
+                    position: uluru,
+                    map: map,
+                });
+            }
+
+            window.initMap = initMap;
+        </script>
+    </section>
+
+    <!--Email sending-->
+    <section>
+        <form action="{% url 'gym:email' %}" method="post">
+            {%csrf_token%}
+            <div>
+                <label>First name</label>
+                <input type="text" name="first_name" placeholder="Enter your first name" required />
+            </div>
+            <div>
+                <label>Last name</label>
+                <input type="text" name="last_name" placeholder="Enter your last name" required />
+            </div>
+            <div>
+                <label>E-mail</label>
+                <input type="email" name="email" placeholder="Enter email address" required />
+            </div>
+            <div>
+                <label>Describe your problem</label>
+                <textarea name="problem_description" id="" cols="30" rows="10"></textarea>
+            </div>
+            <button type="submit">Send</button>
+        </form>
+    </section>
     {%endblock%}
 </body>
 

@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, FormView
 from django.views import View
 import stripe
 from django.conf import settings
-
+from django.core.mail import send_mail
 from .models import MembershipPlan, MembershipPlanPrice
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -45,3 +45,24 @@ class Success(TemplateView):
 
 class CancelView(TemplateView):
     template_name = 'gym_app/cancel.html'
+
+
+def send_email(request):
+    if request.method == 'POST':
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        email = request.POST['email']
+        problem_description = request.POST['problem_description']
+        send_mail(
+            'User problem',
+            'first_name'+first_name+'last_name'+'\n'
+            'problem_description'+problem_description,
+            email,
+            ['stefan.programming22@gmail.com'],
+        )
+        return render(request, 'gym_app/help.html')
+
+    else:
+        return render(request, 'gym_app/index.html')
+
+
