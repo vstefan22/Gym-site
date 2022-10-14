@@ -5,6 +5,7 @@ import stripe
 from django.conf import settings
 from django.core.mail import send_mail
 from .models import MembershipPlan, MembershipPlanPrice
+from users.models import Account
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 class Index(TemplateView):
@@ -36,13 +37,23 @@ class Checkout(View):
             success_url = DOMAIN + '/success/',
             cancel_url = DOMAIN,
         )
-        
+
         return redirect(checkout_session.url)
 
 
 class Success(TemplateView):
     template_name = 'gym_app/success.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        user_progress =  Account.objects.get(user = self.request.user)
+        user_progress.user_progress += 1
+        Account.objects.filter(user = self.request.user).update(user_progress = user_progress.user_progress)
+        context['progress'] = user_progress.user_progress
+        return context
+
+        
 class CancelView(TemplateView):
     template_name = 'gym_app/cancel.html'
 
