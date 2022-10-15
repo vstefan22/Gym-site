@@ -11,15 +11,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 class Index(TemplateView):
     template_name = 'gym_app/index.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        plan = MembershipPlan.objects.get(name = "Monthly Plan")
-        price = MembershipPlanPrice.objects.filter(membership_plan = plan)
 
-        context['plan'] = plan
-        context['price_fields'] = price
-
-        return context
 
 class Checkout(View):
     def post(self, request, *args, **kwargs):
@@ -40,6 +32,17 @@ class Checkout(View):
 
         return redirect(checkout_session.url)
 
+class PlansView(TemplateView):
+    template_name = "gym_app/plans.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        plan = MembershipPlan.objects.get(name = "Monthly Plan")
+        price = MembershipPlanPrice.objects.filter(membership_plan = plan)
+
+        context['plan'] = plan
+        context['price_fields'] = price
+
+        return context
 
 class Success(TemplateView):
     template_name = 'gym_app/success.html'
@@ -73,7 +76,7 @@ def send_email(request):
         )
         return render(request, 'gym_app/help.html')
 
-    else:
-        return render(request, 'gym_app/index.html')
+    
+    return render(request, 'gym_app/help.html')
 
 

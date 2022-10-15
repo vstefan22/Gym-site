@@ -1,1 +1,40 @@
-<h1>Hi</h1>
+{% extends 'gym_app/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {%block content%}
+    <!--Email sending-->
+    <section>
+        <form action="{% url 'gym:help_center' %}" method="post">
+            {%csrf_token%}
+            <div>
+                <label>First name</label>
+                <input type="text" name="first_name" placeholder="Enter your first name" required />
+            </div>
+            <div>
+                <label>Last name</label>
+                <input type="text" name="last_name" placeholder="Enter your last name" required />
+            </div>
+            <div>
+                <label>E-mail</label>
+                <input type="email" name="email" placeholder="Enter email address" required />
+            </div>
+            <div>
+                <label>Describe your problem</label>
+                <textarea name="problem_description" id="" cols="30" rows="10"></textarea>
+            </div>
+            <button type="submit">Send</button>
+        </form>
+    </section>
+    {%endblock%}
+</body>
+
+</html>
