@@ -1,14 +1,6 @@
-#map {
-    height: 400px;
-    /* The height is 400 pixels */
-    width: 100%;
-    /* The width is the width of the web page */
-}
-
 .container-slide{
     width: 100%;
     margin-bottom: 5px;
-    background-color: #222;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -26,3 +18,4 @@
 .swiper .swiper-pagination-bullet-active {
     background: white;
 }
+

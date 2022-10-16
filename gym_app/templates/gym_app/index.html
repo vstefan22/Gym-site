@@ -1,32 +1,25 @@
-{% extends 'gym_app/base.html' %}
+{%extends 'gym_app/base.html'%} {%load static%}
 <!DOCTYPE html>
 <html lang="en">
 
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    {%load static%}{%block content%}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}" />
+    {%block content%}
     <link rel="script" href="{% static 'javascript/index.js' %}">
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
-
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
 </head>
 
-<!--So you need me to get telephone numbers from the site, and check if the telephone numbers from the site are the same as
-the telephone numbers that you input in the file?-->
+
 
 <body>
     <div class="container">
         <div class="text-center">
-            <h1>Supreme</h1>
+            <h1><span style="color: #fd7e14;;">Supr</span>eme G<span style="color: #fd7e14;;">ym</span></h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, debitis!</p>
         </div>
         <!--Image slideshow-->
@@ -48,36 +41,76 @@ the telephone numbers that you input in the file?-->
                 <div class="swiper-button-next"></div>
 
             </div>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-        <script src="{% static 'javascript/index.js' %}"></script>
-        <!--Ends-->
-
-        <!--Google maps-->
-        <section>
-            <!--The div element for the map -->
-            <div id="map"></div>
+            <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
             <script src="{% static 'javascript/index.js' %}"></script>
-            <script src="https://maps.googleapis.com/maps/api/js?key=#&callback=initMap&v=weekly" defer></script>
-        </section>
+        </div>
 
         <!--Ends-->
+
+
 
         <!--About section-->
+        <div class="about mt-5">
+            <p class="h1 text-center mb-4">About us</p>
+            <section class="row mb-5">
 
-        <section class="d-flex justify-content-between">
+                <img src="{% static 'images/gym_1.jpg' %}" alt="" class="col-7" style="height: 350px;">
 
-            <div class="w-75 mt-3 me-3">
-                <img src="{% static 'images/gym_1.jpg' %}" alt="" class="rounded float-start img-fluid">
 
-            </div>
-            <div class="float-end w-25">
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro nihil at sed neque, assumenda
-                    provident sit maiores ab accusantium dolorem, velit repellendus quis itaque! Quae aliquam fugit
-                    sunt, hic corporis ea, eaque rerum autem possimus corrupti delectus provident doloribus amet
-                    eligendi accusantium aliquid ducimus voluptatibus tenetur accusamus, officia voluptatem. Minima!</p>
-            </div>
-        </section>
+                <div class="col-5">
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro nihil at sed neque, assumenda
+                        provident sit maiores ab accusantium dolorem, velit repellendus quis itaque! Quae aliquam fugit
+                        sunt, hic corporis ea, eaque rerum autem possimus corrupti delectus provident doloribus amet
+                        eligendi accusantium aliquid ducimus voluptatibus tenetur accusamus, officia voluptatem. Minima!
+                        <a href="#">Learn more</a>
+                    </p>
+                </div>
+            </section>
+        </div>
+        <!--Google maps-->
+        <div class="container">
+            <p class="h1 text-center">Find us</p>
+            <section class="row mb-5 mt-4">
+
+                <div class="col text-center">
+
+                    <ul class="list-group list-group-light list-group-small text-start">
+                        <li class="list-group-item"><span style="font-weight: 500; color: #6610f2;">Address:</span>
+                            Bulevar vojvode
+                            Stepe Stepanovića 132</li>
+                        <li class="list-group-item"><span style="font-weight: 500; color: #6610f2;">Email:</span>
+                            petevog776@imdutex.com
+                        </li>
+                        <li class="list-group-item"><span style="font-weight: 500; color: #6610f2;">Phone 1:</span>
+                            806-294-8622</li>
+                        <li class="list-group-item"><span style="font-weight: 500; color: #6610f2;">Phone 2:</span>
+                            214-633-5866</li>
+                    </ul>
+                    <br>
+                    <p class="h4 mt-3">Working hours</p>
+                    <ul class="list-group text-start">
+                        <li class="list-group-item" style="border:none; border-bottom: 1px solid black; width: 350px;">
+                            Monday - Saturday: from 06:30 to 23:00</li>
+                        <li class="list-group-item" style="border:none; border-bottom: 1px solid black; width: 350px;">
+                            Sunday: from 12:00 to 21:00</li>
+
+                    </ul>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
+                        <button class="btn me-md-2 w-50 hover-zoom"
+                            style="width: 200px; height:50px; background-color: #19191a;"><a href="#"
+                                style="color: white; text-decoration: none;">Contact
+                                us</a></button>
+                    </div>
+                </div>
+                <!--The div element for the map -->
+                <div id="map" class="col"></div>
+                <script src="{% static 'javascript/index.js' %}"></script>
+                <!--API-->
+                <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&v=weekly" defer></script>
+
+            </section>
+        </div>
+        <!--Ends-->
     </div>
     {%endblock%}
 </body>

@@ -1,3 +1,4 @@
+from pipes import Template
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, FormView
 from django.views import View
@@ -79,4 +80,7 @@ def send_email(request):
     
     return render(request, 'gym_app/help.html')
 
+
+class AboutView(TemplateView):
+    template_name = 'gym_app/about.html'
 
