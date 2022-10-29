@@ -1,118 +1,110 @@
 {%extends 'gym_app/base.html'%} {%load static%}
-<!DOCTYPE html>
-<html lang="en">
 
 
-<head>
-
-    <title>Home</title>
-    {%block content%}
-    <link rel="script" href="{% static 'javascript/index.js' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-
-</head>
+{%block content%}
+<link rel="script" href="{% static 'javascript/index.js' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 
 
 
-<body>
-    <div class="container">
-        <div class="text-center">
-            <h1><span style="color: #fd7e14;;">Supr</span>eme G<span style="color: #fd7e14;;">ym</span></h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, debitis!</p>
-        </div>
-        <!--Image slideshow-->
-        <div class="container-slide">
-            <div class="swiper">
-                <!-- Additional required wrapper -->
-                <div class="swiper-wrapper">
-                    <!-- Slides -->
-                    <div class="swiper-slide"><img src="{% static 'images/gym_1.jpg' %}" alt=""></div>
-                    <div class="swiper-slide"><img src="{% static 'images/gym_1.jpg' %}" alt=""></div>
-                    <div class="swiper-slide"><img src="{% static 'images/gym_1.jpg' %}" alt=""></div>
 
-                </div>
-                <!-- If we need pagination -->
-                <div class="swiper-pagination"></div>
-
-                <!-- If we need navigation buttons -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
+<div class="container">
+    <div class="text-center">
+        <h1><span style="color: #fd7e14;;">Supr</span>eme G<span style="color: #fd7e14;;">ym</span></h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, debitis!</p>
+    </div>
+    <!--Image slideshow-->
+    <div class="container-slide">
+        <div class="swiper">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide"><img src="{% static 'images/gym_1.jpg' %}" alt=""></div>
+                <div class="swiper-slide"><img src="{% static 'images/gym_1.jpg' %}" alt=""></div>
+                <div class="swiper-slide"><img src="{% static 'images/gym_1.jpg' %}" alt=""></div>
 
             </div>
-            <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-            <script src="{% static 'javascript/index.js' %}"></script>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+
         </div>
-
-        <!--Ends-->
-
-
-
-        <!--About section-->
-        <div class="about mt-5">
-            <p class="h1 text-center mb-4">About us</p>
-            <section class="row mb-5">
-
-                <img src="{% static 'images/gym_1.jpg' %}" alt="" class="col-7" style="height: 350px;">
-
-
-                <div class="col-5">
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro nihil at sed neque, assumenda
-                        provident sit maiores ab accusantium dolorem, velit repellendus quis itaque! Quae aliquam fugit
-                        sunt, hic corporis ea, eaque rerum autem possimus corrupti delectus provident doloribus amet
-                        eligendi accusantium aliquid ducimus voluptatibus tenetur accusamus, officia voluptatem. Minima!
-                        <a href="#">Learn more</a>
-                    </p>
-                </div>
-            </section>
-        </div>
-        <!--Google maps-->
-        <div class="container">
-            <p class="h1 text-center">Find us</p>
-            <section class="row mb-5 mt-4">
-
-                <div class="col text-center">
-
-                    <ul class="list-group list-group-light list-group-small text-start">
-                        <li class="list-group-item"><span style="font-weight: 500; color: #6610f2;">Address:</span>
-                            Bulevar vojvode
-                            Stepe Stepanovića 132</li>
-                        <li class="list-group-item"><span style="font-weight: 500; color: #6610f2;">Email:</span>
-                            petevog776@imdutex.com
-                        </li>
-                        <li class="list-group-item"><span style="font-weight: 500; color: #6610f2;">Phone 1:</span>
-                            806-294-8622</li>
-                        <li class="list-group-item"><span style="font-weight: 500; color: #6610f2;">Phone 2:</span>
-                            214-633-5866</li>
-                    </ul>
-                    <br>
-                    <p class="h4 mt-3">Working hours</p>
-                    <ul class="list-group text-start">
-                        <li class="list-group-item" style="border:none; border-bottom: 1px solid black; width: 350px;">
-                            Monday - Saturday: from 06:30 to 23:00</li>
-                        <li class="list-group-item" style="border:none; border-bottom: 1px solid black; width: 350px;">
-                            Sunday: from 12:00 to 21:00</li>
-
-                    </ul>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
-                        <button class="btn me-md-2 w-50 hover-zoom"
-                            style="width: 200px; height:50px; background-color: #19191a;"><a href="#"
-                                style="color: white; text-decoration: none;">Contact
-                                us</a></button>
-                    </div>
-                </div>
-                <!--The div element for the map -->
-                <div id="map" class="col"></div>
-                <script src="{% static 'javascript/index.js' %}"></script>
-                <!--API-->
-                <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap&v=weekly" defer></script>
-
-            </section>
-        </div>
-        <!--Ends-->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+        <script src="{% static 'javascript/index.js' %}"></script>
     </div>
-    {%endblock%}
-</body>
 
-</html>
+    <!--Ends-->
+
+
+
+    <!--About section-->
+    <div class="about mt-5">
+        <p class="h1 text-center mb-4">About us</p>
+        <section class="row mb-5">
+
+            <img src="{% static 'images/gym_1.jpg' %}" alt="" class="col-7" style="height: 350px;">
+
+
+            <div class="col-5">
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Porro nihil at sed neque, assumenda
+                    provident sit maiores ab accusantium dolorem, velit repellendus quis itaque! Quae aliquam fugit
+                    sunt, hic corporis ea, eaque rerum autem possimus corrupti delectus provident doloribus amet
+                    eligendi accusantium aliquid ducimus voluptatibus tenetur accusamus, officia voluptatem. Minima!
+                    <a href="#">Learn more</a>
+                </p>
+            </div>
+        </section>
+    </div>
+    <!--Google maps-->
+    <div class="container">
+        <p class="h1 text-center">Find us</p>
+        <section class="row mb-5 mt-4">
+
+            <div class="col text-center">
+
+                <ul class="list-group list-group-light list-group-small text-start">
+                    <li class="list-group-item"><span style="font-weight: 500; color: #6610f2;">Address:</span>
+                        Bulevar vojvode
+                        Stepe Stepanovića 132</li>
+                    <li class="list-group-item"><span style="font-weight: 500; color: #6610f2;">Email:</span>
+                        petevog776@imdutex.com
+                    </li>
+                    <li class="list-group-item"><span style="font-weight: 500; color: #6610f2;">Phone 1:</span>
+                        806-294-8622</li>
+                    <li class="list-group-item"><span style="font-weight: 500; color: #6610f2;">Phone 2:</span>
+                        214-633-5866</li>
+                </ul>
+                <br>
+                <p class="h4 mt-3">Working hours</p>
+                <ul class="list-group text-start">
+                    <li class="list-group-item" style="border:none; border-bottom: 1px solid black; width: 350px;">
+                        Monday - Saturday: from 06:30 to 23:00</li>
+                    <li class="list-group-item" style="border:none; border-bottom: 1px solid black; width: 350px;">
+                        Sunday: from 12:00 to 21:00</li>
+
+                </ul>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
+                    <button class="btn me-md-2 w-50 hover-zoom"
+                        style="width: 200px; height:50px; background-color: #19191a;"><a href="#"
+                            style="color: white; text-decoration: none;">Contact
+                            us</a></button>
+                </div>
+            </div>
+            <!--The div element for the map -->
+            <div id="map" class="col"></div>
+            <script src="{% static 'javascript/index.js' %}"></script>
+            <!--API-->
+            <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBa-QjKsrPaQM579G8vQdK3ER03sYGG5TY&callback=initMap&v=weekly"
+                defer></script>
+
+        </section>
+    </div>
+    <!--Ends-->
+</div>
+{%endblock%}

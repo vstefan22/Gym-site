@@ -1,6 +1,6 @@
 from pipes import Template
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, FormView
+from django.views.generic import TemplateView, FormView, ListView
 from django.views import View
 import stripe
 from django.conf import settings
@@ -33,8 +33,8 @@ class Checkout(View):
 
         return redirect(checkout_session.url)
 
-class PlansView(TemplateView):
-    template_name = "gym_app/plans.html"
+class PlanView(TemplateView):
+    template_name = "gym_app/plan.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         plan = MembershipPlan.objects.get(name = "Monthly Plan")
@@ -43,6 +43,17 @@ class PlansView(TemplateView):
         context['plan'] = plan
         context['price_fields'] = price
 
+        return context
+
+class PlansView(ListView):
+    template_name = 'gym_app/plans.html'
+    model = MembershipPlan
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # gets all plans
+        name_of_plans = MembershipPlan.objects.all()
+        context['name_of_plans'] = name_of_plans
+        
         return context
 
 class Success(TemplateView):

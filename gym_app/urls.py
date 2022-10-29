@@ -11,5 +11,6 @@ urlpatterns = [
     path('cancel/', views.CancelView.as_view(), name = 'cancel'),
     path('help/', views.send_email, name = 'help_center'),
     path('about/', views.AboutView.as_view(), name = 'about'),
+    path('plan/<slug:slug>', views.PlanView.as_view(), name = 'plan')
 
 ]
