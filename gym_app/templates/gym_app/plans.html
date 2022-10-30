@@ -1,4 +1,14 @@
 {%extends 'gym_app/base.html'%} {%load static%} {%block content%}
+
+{% if messages %}
+{% for message in messages %}
+<div class="container-fluid p-0">
+    <div class="alert {{ message.tags }}" role="alert" style="text-align: center;">
+        {{ message }}
+    </div>
+</div>
+{% endfor %}
+{% endif %}
 {% for plan in name_of_plans%}
 {{plan.name}}
 <br>
@@ -7,7 +17,6 @@
 
 {%for pricee in plan.plan.all%}
 {{pricee.price}}
-{{pricee.id}}
 <br><br>
 <form action="{% url 'gym:checkout' pricee.id %}" method="post">
     {%csrf_token%}

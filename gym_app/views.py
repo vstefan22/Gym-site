@@ -7,7 +7,9 @@ from django.core.mail import send_mail
 from .models import MembershipPlan, MembershipPlanPrice
 from users.models import Account, Membership
 import datetime
-
+from datetime import datetime as dt
+from dateutil.relativedelta import relativedelta
+from django.contrib import messages
 stripe.api_key = settings.STRIPE_SECRET_KEY
 class Index(TemplateView):
     template_name = 'gym_app/index.html'
@@ -31,17 +33,25 @@ class Checkout(View):
             success_url = DOMAIN + '/success/',
             cancel_url = DOMAIN,
         )
+        # Check if user has active plan
         acc_user = Account.objects.get(user = self.request.user)
-        query_date = Membership.objects.filter(account = acc_user)
-        for date in query_date:
-            if date.date == datetime.date.today():
-                return redirect('gym:index')
-            else:
-                user_progress =  Account.objects.get(user = self.request.user)
-                user_progress.user_progress += 1
-                Account.objects.filter(user = self.request.user).update(user_progress = user_progress.user_progress)
-                
-                Membership.objects.create(account = acc_user, date = datetime.date.today(), membership_plan = price.membership_plan)
+        query_date = Membership.objects.filter(account = acc_user).latest('date')
+        iterable_query_date = Membership.objects.filter(account = acc_user)
+        
+        if query_date.date == datetime.date.today():
+            return redirect('gym:index')
+        if dt.today() < dt.today()+ relativedelta(months=1):
+            return redirect('gym:index')
+        else:
+           for date in iterable_query_date:
+                if date.date == datetime.date.today():
+                    return redirect('gym:index')
+                else:
+                    user_progress =  Account.objects.get(user = self.request.user)
+                    user_progress.user_progress += 1
+                    Account.objects.filter(user = self.request.user).update(user_progress = user_progress.user_progress)
+                    Membership.objects.create(account = acc_user, date = datetime.date.today(), membership_plan = price.membership_plan)
+
         return redirect(checkout_session.url)
 
 class PlanView(TemplateView):
@@ -63,8 +73,18 @@ class PlansView(ListView):
         context = super().get_context_data(**kwargs)
         # gets all plans
         name_of_plans = MembershipPlan.objects.all()
+
+        # Displays warning message to users that have active plan
+        acc_user = Account.objects.get(user = self.request.user)
+        query_date = Membership.objects.filter(account = acc_user).latest('date')
+
+        if query_date.date == datetime.date.today():
+            messages.warning(self.request, 'You bought gym plan today, if you buy another one it will not count in your progress track!')
+        elif dt.today() < dt.today()+ relativedelta(months=1):
+            messages.warning(self.request, "Your gym plan didn't expired yet, if you buy another one it will not count in your progress track!")
+        else:
+            pass
         context['name_of_plans'] = name_of_plans
-        
         return context
 
 class Success(TemplateView):
