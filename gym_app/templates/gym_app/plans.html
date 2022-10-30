@@ -7,9 +7,18 @@
 
 {%for pricee in plan.plan.all%}
 {{pricee.price}}
+{{pricee.id}}
+<br><br>
+<form action="{% url 'gym:checkout' pricee.id %}" method="post">
+    {%csrf_token%}
+    <button type="submit">Buy now</button>
+</form>
+
 {%endfor%}
 <br>
+
 <img src="{{plan.image.url}}" alt="">
+
 <br><br>
 {%endfor%}
 

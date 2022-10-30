@@ -1,12 +1,12 @@
-from pipes import Template
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, FormView, ListView
+from django.views.generic import TemplateView, FormView, ListView, CreateView
 from django.views import View
 import stripe
 from django.conf import settings
 from django.core.mail import send_mail
 from .models import MembershipPlan, MembershipPlanPrice
-from users.models import Account
+from users.models import Account, Membership
+import datetime
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 class Index(TemplateView):
@@ -17,12 +17,13 @@ class Index(TemplateView):
 class Checkout(View):
     def post(self, request, *args, **kwargs):
         price = MembershipPlanPrice.objects.get(id=self.kwargs["pk"])
+        print(price.membership_plan)
         DOMAIN = 'http://127.0.0.1:8000'
         checkout_session = stripe.checkout.Session.create(
             payment_method_types  = ['card'],
             line_items = [
                 {
-                    'price' : price.stripe_price_id,
+                    'price' : price.stripe_price,
                     'quantity': 1,
                 },
             ],
@@ -30,7 +31,17 @@ class Checkout(View):
             success_url = DOMAIN + '/success/',
             cancel_url = DOMAIN,
         )
-
+        acc_user = Account.objects.get(user = self.request.user)
+        query_date = Membership.objects.filter(account = acc_user)
+        for date in query_date:
+            if date.date == datetime.date.today():
+                return redirect('gym:index')
+            else:
+                user_progress =  Account.objects.get(user = self.request.user)
+                user_progress.user_progress += 1
+                Account.objects.filter(user = self.request.user).update(user_progress = user_progress.user_progress)
+                
+                Membership.objects.create(account = acc_user, date = datetime.date.today(), membership_plan = price.membership_plan)
         return redirect(checkout_session.url)
 
 class PlanView(TemplateView):
@@ -59,15 +70,6 @@ class PlansView(ListView):
 class Success(TemplateView):
     template_name = 'gym_app/success.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        user_progress =  Account.objects.get(user = self.request.user)
-        user_progress.user_progress += 1
-        Account.objects.filter(user = self.request.user).update(user_progress = user_progress.user_progress)
-        context['progress'] = user_progress.user_progress
-        return context
-
         
 class CancelView(TemplateView):
     template_name = 'gym_app/cancel.html'
@@ -94,4 +96,8 @@ def send_email(request):
 
 class AboutView(TemplateView):
     template_name = 'gym_app/about.html'
+
+
+class AccountView(TemplateView):
+    template_name = 'gym_app/account.html'
 
