@@ -1,0 +1,20 @@
+{%extends 'gym_app/base.html'%} {%load static%} {%block content%}
+{{account.user.first_name}}
+{{account.user.last_name}}
+<br>
+{{account.user.email}}
+<br>
+<img src="{{account.profile_pic.url}}" style='width:200px; height:200px;' alt="">
+<br>
+<h3>User progress</h3>
+{{account.user_progress}}
+<br>
+<br>
+<h3>Part of the gym</h3>
+{%for pay in membership%}
+{{pay.date}}
+<br>
+{{pay.plan}}
+<br>
+{%endfor%}
+{%endblock%}

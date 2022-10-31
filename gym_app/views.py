@@ -79,9 +79,9 @@ class PlansView(ListView):
         query_date = Membership.objects.filter(account = acc_user).latest('date')
 
         if query_date.date == datetime.date.today():
-            messages.warning(self.request, 'You bought gym plan today, if you buy another one it will not count in your progress track!')
+            messages.warning(self.request, 'You bought gym plan today. If you buy another one it will not count in your progress track!')
         elif dt.today() < dt.today()+ relativedelta(months=1):
-            messages.warning(self.request, "Your gym plan didn't expired yet, if you buy another one it will not count in your progress track!")
+            messages.warning(self.request, "Your gym plan didn't expire yet. If you buy another one it will not count in your progress track!")
         else:
             pass
         context['name_of_plans'] = name_of_plans
@@ -120,4 +120,18 @@ class AboutView(TemplateView):
 
 class AccountView(TemplateView):
     template_name = 'gym_app/account.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        account_user = Account.objects.get(user = self.request.user)
+        membership = Membership.objects.filter(account = account_user)
+        for i in membership:
+            print(i.account.user)
+            print(i.date)
+            print(i.plan)
+        print(account_user)
+        context['membership'] = membership
+        context['account'] = account_user
+        
+        return context
 

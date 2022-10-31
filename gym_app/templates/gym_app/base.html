@@ -15,10 +15,10 @@
     <nav class="navbar navbar-light text-light" style="background-color: #19191a; font-size: 18px;">
         <ul class="nav justify-content-left mx-3">
             <li class="nav-item">
-                <a href="{% url 'gym:index' %}" class="navbar-brand m-3 text-light">SUPREME</a>
+                <a href="{% url 'gym:index' %}" class="navbar-brand m-3 h1" style="color:orange">SUPREME</a>
             </li>
             <li class="nav-item">
-                <a href="{% url 'gym:plans' %}" class="nav-link text-light">Plans</a>
+                <a href="{% url 'gym:plans' %}" class="nav-link" style="color:orange">Plans</a>
             </li>
             <li class="nav-item">
                 <a href="{% url 'gym:help_center' %}" class="nav-link text-light">Help center</a>
@@ -31,6 +31,9 @@
                 <a href="{% url 'gym:about' %}" class="nav-link text-light">About us</a>
             </li>
             {%if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a href="{% url 'gym:account'%}" class="nav-link" style="color:orange">Account</a>
+            </li>
             <li class="nav-item">
                 <a href="{% url 'users:logout'%}" class="nav-link text-light">Logout</a>
             </li>

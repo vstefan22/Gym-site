@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 class Account(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, null = True)
+    profile_pic = models.ImageField(upload_to = 'images/', null = True, blank = True)
     user_progress = models.IntegerField(default = 0)
 
 class Membership(models.Model):
