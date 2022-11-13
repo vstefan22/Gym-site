@@ -103,8 +103,8 @@ def send_email(request):
         problem_description = request.POST['problem_description']
         send_mail(
             'User problem',
-            'first_name'+first_name+'last_name'+'\n'
-            'problem_description'+problem_description,
+            'First name: '+first_name+'\nLast name: '+last_name +'\n'
+            'Problem description: '+problem_description,
             email,
             ['stefan.programming22@gmail.com'],
         )
