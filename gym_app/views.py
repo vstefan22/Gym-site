@@ -125,13 +125,17 @@ class AccountView(TemplateView):
         context = super().get_context_data(**kwargs)
         account_user = Account.objects.get(user = self.request.user)
         membership = Membership.objects.filter(account = account_user)
+        stars = []
         for i in membership:
             print(i.account.user)
             print(i.date)
             print(i.plan)
+            progress = i.date
+            stars.append(progress)
         print(account_user)
         context['membership'] = membership
         context['account'] = account_user
+        context['stars'] = stars
         
         return context
 
